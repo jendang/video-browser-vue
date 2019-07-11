@@ -5,6 +5,7 @@
     <SearchBar @termChange="onTermChange"></SearchBar>
     <div class="row">
       <VideoDetail :video="selectedVideo"></VideoDetail>
+      <div v-if="selectedVideo === null">Loading ...</div>
       <VideoList :videos="videos" @videoSelect="onVideoSelect"></VideoList>
     </div>
   </div>
@@ -55,6 +56,12 @@ export default {
       this.selectedVideo = video
     }
   }
+  // computed: {
+  //   renderMedia() {
+
+  //     return this.data
+  //   }
+  // },
 }
 </script>
 
