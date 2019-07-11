@@ -3,7 +3,10 @@
     <!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
     <!-- <HelloWorld msg="My first Vue.js App" /> -->
     <SearchBar @termChange="onTermChange"></SearchBar>
-    <VideoList :videos="videos"></VideoList>
+    <div class="row">
+      <VideoDetail :video="selectedVideo"></VideoDetail>
+      <VideoList :videos="videos" @videoSelect="onVideoSelect"></VideoList>
+    </div>
   </div>
 </template>
 
@@ -13,6 +16,7 @@
 import axios from 'axios'
 import SearchBar from '@/components/SearchBar.vue'
 import VideoList from '@/components/VideoList.vue'
+import VideoDetail from '@/components/VideoDetail.vue'
 
 const API_KEY = 'AIzaSyC5dFd_cS4QfKtdha599vMyN_RoaBxzwtA'
 
@@ -20,11 +24,13 @@ export default {
   name: 'home',
   components: {
     SearchBar,
-    VideoList
+    VideoList,
+    VideoDetail
   },
   data() {
     return {
-      videos: []
+      videos: [],
+      selectedVideo: null
     }
   },
   methods: {
@@ -43,7 +49,13 @@ export default {
           //this.videos from data func above
           this.videos = response.data.items
         })
+    },
+    onVideoSelect(video) {
+      // console.log(video)
+      this.selectedVideo = video
     }
   }
 }
 </script>
+
+<style scoped></style>
