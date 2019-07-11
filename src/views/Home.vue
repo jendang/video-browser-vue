@@ -1,24 +1,31 @@
 <template>
-  <div class="home">
+  <div class="container">
     <!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
     <!-- <HelloWorld msg="My first Vue.js App" /> -->
     <SearchBar @termChange="onTermChange"></SearchBar>
-    <h1>Hi there!</h1>
+    <VideoList :videos="videos"></VideoList>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
+
 import axios from 'axios'
 import SearchBar from '@/components/SearchBar.vue'
+import VideoList from '@/components/VideoList.vue'
+
 const API_KEY = 'AIzaSyC5dFd_cS4QfKtdha599vMyN_RoaBxzwtA'
 
 export default {
   name: 'home',
   components: {
-    // HelloWorld,
-    SearchBar
+    SearchBar,
+    VideoList
+  },
+  data() {
+    return {
+      videos: []
+    }
   },
   methods: {
     onTermChange(searchTerm) {
@@ -32,7 +39,10 @@ export default {
             q: searchTerm
           }
         })
-        .then(response => console.log(response))
+        .then(response => {
+          //this.videos from data func above
+          this.videos = response.data.items
+        })
     }
   }
 }
